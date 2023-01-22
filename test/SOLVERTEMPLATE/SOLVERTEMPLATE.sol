@@ -2,22 +2,22 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/SOLVERTEMPLATE.sol";
+import "src/SOLVERTEMPLATE/SOLVERTEMPLATE.sol";
 
 contract SOLVERTEMPLATETest is Test {
-    Counter public counter;
+    SOLVERTEMPLATE public target;
     function setUp() public {
-       counter = new Counter();
-       counter.setNumber(0);
+       target = new SOLVERTEMPLATE();
+       target.setNumber(0);
     }
 
     function testIncrement() public {
-        counter.increment();
-        assertEq(counter.number(), 1);
+        target.increment();
+        assertEq(target.number(), 1);
     }
 
     function testSetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
+        target.setNumber(x);
+        assertEq(target.number(), x);
     }
 }
