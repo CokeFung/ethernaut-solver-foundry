@@ -14,7 +14,9 @@ contract SOLVERTEMPLATEScript is Script {
         SETUP SCENARIO
     */
     function setUp() public {
-        if (block.chainid == 5) { //goerli chian
+        uint chainId;
+        assembly { chainId := chainid() }
+        if (chainId == 5) { //goerli chian
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
