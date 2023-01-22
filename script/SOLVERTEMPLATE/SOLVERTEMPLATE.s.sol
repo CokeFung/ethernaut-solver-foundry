@@ -6,19 +6,52 @@ import "src/SOLVERTEMPLATE/SOLVERTEMPLATE.sol";
 
 contract SOLVERTEMPLATEScript is Script {
 
+    address internal attacker;
+    address internal deployer;
     SOLVERTEMPLATE target;
 
+    /** 
+        SETUP SCENARIO
+    */
     function setUp() public {
-        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
         if (block.chainid == 5) { //goerli chian
-            target = SOLVERTEMPLATE(0x0000000000000000000000000000000000000000); //attach to an address
+            /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
+            attacker = msg.sender;
+            /** Setup contract and required init (you may have to modify this section) **/
+            target = SOLVERTEMPLATE(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
+            /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
+            deployer = vm.addr(1);
+            attacker = vm.addr(1337);
+            vm.label(deployer, "Deployer");
+            vm.label(attacker, "Attacker");
+            /** Airdrop (NO NEED TO CHANGE ANYTHING HERE?) **/
+            vm.deal(deployer, 100 ether);
+             vm.deal(attacker, 0.5 ether);
+            /** Setup contract and required init (you may have to modify this section) **/
+            vm.startBroadcast(deployer);
             target = new SOLVERTEMPLATE();
+            vm.stopBroadcast();
         }
     }
 
+    /** 
+        CODE YOUR EXPLOIT HERE 
+        Do not forget to broadcast as the attacker :)
+    **/
     function run() public {
-        /** CODE YOUR EXPLOIT HERE **/
-        
+        console.log("[Info]");
+        console.log("attacker : %s", attacker);
+
+        console.log("[Before the exploit]");
+        console.log("num: %d", target.number());
+
+        console.log("[Exploiting...]");
+        vm.startBroadcast(attacker);
+        target.increment();
+        vm.stopBroadcast();
+
+        console.log("[After the exploit]");
+        console.log("num: %d", target.number());
     }
 }

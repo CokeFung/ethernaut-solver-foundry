@@ -4,7 +4,7 @@
     ```
     forge script script/SOLVERTEMPLATE/SOLVERTEMPLATE.s.sol
     ```
-- executing on specified network
+- executing on specified network (If it fails, try `source .env` first)
     ```
     forge script script/SOLVERTEMPLATE/SOLVERTEMPLATE.s.sol \
     --rpc-url $FOUNDRY_GOERLI_RPC_URL \
