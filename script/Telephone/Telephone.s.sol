@@ -21,7 +21,7 @@ contract TelephoneScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = Telephone(0x84012d10651D3b534720C244b7b3bBE9ABdf27f6); //attach to an existing contract:0x0000000000000000000000000000000000000000
+            target = Telephone(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
