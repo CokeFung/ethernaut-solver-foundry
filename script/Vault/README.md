@@ -4,9 +4,9 @@
     ```
     forge script script/Vault/Vault.s.sol
     ```
-    or (to avoid "Warning: Function state mutability can be restricted to view")
+    or (cleaner output)
     ```
-    forge script script/Vault/Vault.s.sol --ignored-error-codes 2018
+    forge script script/Vault/Vault.s.sol --silent
     ```
 - executing on specified network (If it fails, try `source .env` first)
     ```
