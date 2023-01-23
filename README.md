@@ -37,7 +37,7 @@ trust the docs: https://book.getfoundry.sh/getting-started/installation
 - [x]  [Fallout](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/fallout)
 - [x]  [Coin Flip](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/coin-flip)
 - [x]  [Telephone](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/telephone)
-- [ ]  [Token](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/token)
+- [x]  [Token](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/token)
 - [ ]  [Delegation](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/delegation)
 - [ ]  [Force](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/force)
 - [ ]  [Vault](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/vault)
