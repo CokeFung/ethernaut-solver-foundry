@@ -20,7 +20,7 @@ contract InstanceScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = Instance(0xc0f7DD13E86Cd3B4F765AEE2350f6C211CBFc49c); //attach to an existing contract
+            target = Instance(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
