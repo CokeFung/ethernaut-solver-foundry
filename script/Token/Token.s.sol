@@ -20,7 +20,7 @@ contract TokenScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = Token(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            // target = Token(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -29,10 +29,10 @@ contract TokenScript is Script {
             vm.label(attacker, "Attacker");
             /** Airdrop (NO NEED TO CHANGE ANYTHING HERE?) **/
             vm.deal(deployer, 100 ether);
-             vm.deal(attacker, 0.5 ether);
+            vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            target = new Token();
+            // target = new Token();
             vm.stopBroadcast();
         }
     }
