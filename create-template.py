@@ -30,12 +30,13 @@ def main():
     for directory in toCreateList:
         """ Script """
         contractPath = "%s/%s/" % (srcDirectory, directory)
-        contract = run("ls %s" % contractPath)[0].strip(".sol")
+        contract = run("ls %s" % contractPath)[0].replace(".sol", "")
         scriptPath = "%s/%s/%s.s.sol" % (scriptDirectory, directory, directory)
         newContent = temaplateScriptContent.replace(
             "src/SOLVERTEMPLATE/SOLVERTEMPLATE.sol",
             "src/%s/%s.sol" % (directory, contract)
         )
+        print( "src/%s/%s.sol" % (directory, contract))
         run("mkdir ./script/%s" % directory)
         newContent = newContent.replace(templateWord, contract)
         newScript = open(scriptPath, "w")
