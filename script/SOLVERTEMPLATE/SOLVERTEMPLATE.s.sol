@@ -44,16 +44,5 @@ contract SOLVERTEMPLATEScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
-
-        console.log("[Before the exploit]");
-        console.log("num: %d", target.number());
-
-        console.log("[Exploiting...]");
-        vm.startBroadcast(attacker);
-        target.increment();
-        vm.stopBroadcast();
-
-        console.log("[After the exploit]");
-        console.log("num: %d", target.number());
     }
 }
