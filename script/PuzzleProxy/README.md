@@ -4,6 +4,10 @@
     ```
     forge script script/PuzzleProxy/PuzzleProxy.s.sol
     ```
+    or (to avoid "Warning: Function state mutability can be restricted to view")
+    ```
+    forge script script/PuzzleProxy/PuzzleProxy.s.sol --ignored-error-codes 2018
+    ```
 - executing on specified network (If it fails, try `source .env` first)
     ```
     forge script script/PuzzleProxy/PuzzleProxy.s.sol \
