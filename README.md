@@ -32,7 +32,7 @@ trust the docs: https://book.getfoundry.sh/getting-started/installation
     ```
 
 ### solutions
-- [ ]  [Hello Ethernaut](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/hello-ethernaut)
+- [x]  [Hello Ethernaut](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/hello-ethernaut)
 - [ ]  [Fallback](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/fallback)
 - [ ]  [Fallout](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/fallout)
 - [ ]  [Coin Flip](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/coin-flip)
