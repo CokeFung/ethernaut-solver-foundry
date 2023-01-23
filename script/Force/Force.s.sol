@@ -49,7 +49,8 @@ contract ForceScript is Script {
         console.log("[Exploit]");
         vm.startBroadcast(attacker);
         ForceSolver solver = new ForceSolver();
-        address(solver).call{value:1}("");
+        (bool result, ) = address(solver).call{value:1}("");
+        require(result, "Failed to send Ether");
         solver.exploit(address(target));
         vm.stopBroadcast();
         console.log("target balance: %s", address(target).balance);
