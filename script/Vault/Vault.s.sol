@@ -20,7 +20,7 @@ contract VaultScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = Vault(0x57b9334b6A1D3B50d0b1017Be02C0fEd714Bf7a4); //attach to an existing contract:0x0000000000000000000000000000000000000000
+            target = Vault(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
