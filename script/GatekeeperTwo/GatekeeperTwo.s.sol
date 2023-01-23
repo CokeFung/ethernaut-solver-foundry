@@ -2,13 +2,13 @@
 pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 
 import "forge-std/Script.sol";
-import "src/GatekeeperTwo/GatekeeperTw.sol";
+import "src/GatekeeperTwo/GatekeeperTwo.sol";
 
-contract GatekeeperTwScript is Script {
+contract GatekeeperTwoScript is Script {
 
     address internal attacker;
     address internal deployer;
-    GatekeeperTw target;
+    GatekeeperTwo target;
 
     /** 
         SETUP SCENARIO
@@ -20,7 +20,7 @@ contract GatekeeperTwScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = GatekeeperTw(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = GatekeeperTwo(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,7 @@ contract GatekeeperTwScript is Script {
              vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            target = new GatekeeperTw();
+            target = new GatekeeperTwo();
             vm.stopBroadcast();
         }
     }

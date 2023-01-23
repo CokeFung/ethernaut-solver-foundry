@@ -2,13 +2,13 @@
 pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 
 import "forge-std/Script.sol";
-import "src/DexTwo/DexTw.sol";
+import "src/DexTwo/DexTwo.sol";
 
-contract DexTwScript is Script {
+contract DexTwoScript is Script {
 
     address internal attacker;
     address internal deployer;
-    DexTw target;
+    DexTwo target;
 
     /** 
         SETUP SCENARIO
@@ -20,7 +20,7 @@ contract DexTwScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = DexTw(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = DexTwo(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,7 @@ contract DexTwScript is Script {
              vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            target = new DexTw();
+            target = new DexTwo();
             vm.stopBroadcast();
         }
     }
