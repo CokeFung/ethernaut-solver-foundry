@@ -3,13 +3,13 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
-import "src/PuzzleProxy/PuzzleProxy.sol";
+import "src/PuzzleWallet/PuzzleWallet.sol";
 
-contract PuzzleProxyScript is Script {
+contract PuzzleWalletScript is Script {
 
     address internal attacker;
     address internal deployer;
-    PuzzleProxy target;
+    PuzzleWallet target;
 
     /** 
         SETUP SCENARIO
@@ -21,7 +21,7 @@ contract PuzzleProxyScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = PuzzleProxy(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            // target = PuzzleWallet(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -33,7 +33,7 @@ contract PuzzleProxyScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new PuzzleProxy();
+            // target = new PuzzleWallet();
             vm.stopBroadcast();
         }
     }
