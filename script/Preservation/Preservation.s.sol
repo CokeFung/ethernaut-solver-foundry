@@ -36,7 +36,7 @@ contract PreservationScript is Script {
             vm.startBroadcast(deployer);
             LibraryContract lib1 = new LibraryContract();
             LibraryContract lib2 = new LibraryContract();
-            target = new Preservation(address(lib1), address(lib1));
+            target = new Preservation(address(lib1), address(lib2));
             vm.stopBroadcast();
         }
     }
