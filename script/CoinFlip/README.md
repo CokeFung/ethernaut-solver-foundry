@@ -9,9 +9,13 @@
     forge script script/CoinFlip/CoinFlip.s.sol --silent
     ```
 - executing on specified network (If it fails, try `source .env` first)
+    `--fork-block-number` should be more than `currentblock - 256`
     ```
     forge script script/CoinFlip/CoinFlip.s.sol \
-    --rpc-url $FOUNDRY_GOERLI_RPC_URL \
     --private-key $FOUNDRY_PRIVATE_KEY \
-    --broadcast
+    --fork-url $FOUNDRY_GOERLI_RPC_URL \
+    --fork-block-number 8365750 \
+    --slow \
+    --broadcast \
+    --skip-simulation
     ```
