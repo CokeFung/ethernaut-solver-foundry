@@ -46,7 +46,7 @@ trust the docs: https://book.getfoundry.sh/getting-started/installation
 - [x]  [Elevator](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/elevator)
 - [x]  [Privacy](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/privacy)
 - [x]  [Gatekeeper One](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/gatekeeper-one)
-- [ ]  [Gatekepper Two](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/gatekeeper-two)
+- [x]  [Gatekepper Two](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/gatekeeper-two)
 - [ ]  [Naught Coin](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/naught-coin)
 - [ ]  [Preservation](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/preservation)
 - [ ]  [Recovery](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/recovery)
