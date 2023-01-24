@@ -51,7 +51,7 @@ trust the docs: https://book.getfoundry.sh/getting-started/installation
 - [x]  [Preservation](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/preservation)
 - [x]  [Recovery](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/recovery)
 - [ ]  [MagicNumber](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/magic-number)
-- [ ]  [Alien Codex](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/alien-codex)
+- [x]  [Alien Codex](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/alien-codex)
 - [ ]  [Denial](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/denial)
 - [ ]  [Shop](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/shop)
 - [ ]  [Dex](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/dex)
