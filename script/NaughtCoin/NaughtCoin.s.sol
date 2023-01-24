@@ -53,6 +53,6 @@ contract NaughtCoinScript is Script {
         target.approve(address(wallet), target.balanceOf(attacker));
         wallet.exploit(address(target));
         vm.stopBroadcast();
-        console.log("NaughtCoin.balanceOf(atacker) : %d wei", target.balanceOf(attacker));
+        console.log("NaughtCoin.balanceOf(attacker) : %d wei", target.balanceOf(attacker));
     }
 }
