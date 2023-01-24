@@ -1,13 +1,5 @@
 # AlienCodex
 ### command
-- executing on local network
-    ```
-    forge script script/AlienCodex/AlienCodex.s.sol
-    ```
-    or (cleaner output)
-    ```
-    forge script script/AlienCodex/AlienCodex.s.sol --silent
-    ```
 - executing on specified network (If it fails, try `source .env` first)
     ```
     forge script script/AlienCodex/AlienCodex.s.sol \
