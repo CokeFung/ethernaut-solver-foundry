@@ -56,7 +56,7 @@ trust the docs: https://book.getfoundry.sh/getting-started/installation
 - [x]  [Shop](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/shop)
 - [x]  [Dex](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/dex)
 - [x]  [Dex Two](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/dex-two)
-- [ ]  [Puzzle Wallet](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/puzzle-wallet)
+- [x]  [Puzzle Wallet](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/puzzle-wallet)
 - [ ]  [Motorbike](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/motorbike)
 - [ ]  [DoubleEntryPoint](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/double-entry-point)
 - [ ]  [Good Samaritan](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/good-samaritan)
