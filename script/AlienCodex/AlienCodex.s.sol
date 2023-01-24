@@ -21,7 +21,7 @@ contract AlienCodexScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = IAlienCodex(0xd0aa19Dbf38D511fDd8ff6066D872B89573d2fEC); //attach to an existing contract:0x0000000000000000000000000000000000000000
+            target = IAlienCodex(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             // deployer = vm.addr(1);
