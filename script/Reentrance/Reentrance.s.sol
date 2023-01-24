@@ -2,8 +2,8 @@
 pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 
 import "forge-std/Script.sol";
+import "forge-std/console2.sol";
 import "src/Reentrance/Reentrance.sol";
-
 contract ReentranceScript is Script {
 
     address internal attacker;
@@ -20,7 +20,7 @@ contract ReentranceScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Reentrance(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Reentrance(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -32,7 +32,9 @@ contract ReentranceScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Reentrance();
+            target = new Reentrance();
+            (bool sent,) = address(target).call{value: 0.001 ether}("");
+            require(sent, "Failed to send Ether");
             vm.stopBroadcast();
         }
     }
@@ -42,7 +44,10 @@ contract ReentranceScript is Script {
         Do not forget to broadcast as the attacker :)
     **/
     function run() public {
-        console.log("[Info]");
-        console.log("attacker : %s", attacker);
+        console2.log("[Info]");
+        console2.log("attacker : %s", attacker);
+        console2.log("target.balance : %d wei", address(target).balance);
+
+        
     }
 }

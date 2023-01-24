@@ -2,6 +2,7 @@
 pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 
 import "forge-std/Script.sol";
+import "forge-std/console2.sol";
 import "src/NaughtCoin/NaughtCoin.sol";
 
 contract NaughtCoinScript is Script {
