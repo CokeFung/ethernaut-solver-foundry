@@ -9,7 +9,7 @@
     forge script script/CoinFlip/CoinFlip.s.sol --silent
     ```
 - executing on specified network (If it fails, try `source .env` first)
-    `--fork-block-number` should be more than `currentblock - 256`
+    `--fork-block-number` should be more than `currentblock - 256` and less than `currentblock - 10`
     ```
     forge script script/CoinFlip/CoinFlip.s.sol \
     --private-key $FOUNDRY_PRIVATE_KEY \

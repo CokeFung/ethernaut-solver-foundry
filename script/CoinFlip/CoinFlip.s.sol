@@ -21,7 +21,7 @@ contract CoinFlipScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            target = CoinFlip(0xDC54876a5f54456E0b4Bbe1F49Ac7FAce4EAf68d); //attach to an existing contract:0x0000000000000000000000000000000000000000
+            target = CoinFlip(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
