@@ -4,6 +4,7 @@ pragma solidity >=0.6.0 <0.9.0; // flexible is better, no?
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
 import "src/DoubleEntryPoint/DoubleEntryPoint.sol";
+import "./DetectionBot.sol";
 
 contract DoubleEntryPointScript is Script {
 
@@ -21,7 +22,7 @@ contract DoubleEntryPointScript is Script {
             /** Define addresses  (NO NEED TO CHANGE ANYTHING HERE) **/
             attacker = msg.sender;
             /** Setup contract and required init (you may have to modify this section) **/
-            // target = DoubleEntryPoint(0x0000000000000000000000000000000000000000); //attach to an existing contract
+            target = DoubleEntryPoint(0x87CdaA0d8b608828E90075a843Eba296b7950c1d); //attach to an existing contract:0x0000000000000000000000000000000000000000
         }else{ // local - chainid = 31137
             /** Define actors (NO NEED TO CHANGE ANYTHING HERE) **/
             deployer = vm.addr(1);
@@ -33,7 +34,17 @@ contract DoubleEntryPointScript is Script {
             vm.deal(attacker, 0.5 ether);
             /** Setup contract and required init (you may have to modify this section) **/
             vm.startBroadcast(deployer);
-            // target = new DoubleEntryPoint();
+            LegacyToken LGT = new LegacyToken();
+            CryptoVault vault = new CryptoVault(deployer);
+            Forta forta = new Forta();
+            target = new DoubleEntryPoint(
+                address(LGT),
+                address(vault),
+                address(forta),
+                address(attacker)
+            );
+            vault.setUnderlying(address(target));
+            LGT.delegateToNewContract(DelegateERC20(target));
             vm.stopBroadcast();
         }
     }
@@ -45,5 +56,15 @@ contract DoubleEntryPointScript is Script {
     function run() public {
         console.log("[Info]");
         console.log("attacker : %s", attacker);
+
+        vm.startBroadcast(attacker);
+        DetectionBot bot = new DetectionBot(
+            target.player(),
+            target.forta(),
+            target.cryptoVault(),
+            IERC20(target)
+        );
+        target.forta().setDetectionBot(address(bot));
+        vm.stopBroadcast();
     }
 }
