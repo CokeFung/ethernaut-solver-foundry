@@ -60,4 +60,4 @@ trust the docs: https://book.getfoundry.sh/getting-started/installation
 - [x]  [Motorbike](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/motorbike)
 - [x]  [DoubleEntryPoint](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/double-entry-point)
 - [x]  [Good Samaritan](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/good-samaritan)
-- [ ]  [Gatekeeper Three](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/gatekeeper-three)
+- [x]  [Gatekeeper Three](https://github.com/CokeFung/ethernaut-solver-foundry/tree/main/test/gatekeeper-three)
