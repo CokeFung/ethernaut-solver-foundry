@@ -9,7 +9,7 @@ contract SOLVERTEMPLATEScript is Script {
 
     address internal attacker;
     address internal deployer;
-    SOLVERTEMPLATE target;
+    SOLVERTEMPLATE internal target;
 
     /** 
         SETUP SCENARIO
@@ -43,7 +43,13 @@ contract SOLVERTEMPLATEScript is Script {
         Do not forget to broadcast as the attacker :)
     **/
     function run() public {
-        console.log("[Info]");
+        console.log("====[Info]====");
         console.log("attacker : %s", attacker);
+
+        console.log("====[Exploit]====");
+        vm.startBroadcast(attacker);
+        vm.stopBroadcast();
+
+        console.log("====[Result]====");
     }
 }
