@@ -26,13 +26,14 @@ def main():
     scriptDirectory = "./script"
     srcDirectory = "./src"
     templateWord = "SOLVERTEMPLATE"
+    templateWordcontract = "SOLVERTEMPLATECONTRACT"
     temaplateScriptContent = open("%s/%s/%s.s.sol"% (scriptDirectory, templateWord, templateWord)).read()
     temaplateREADMEContent = open("%s/%s/README.md"% (scriptDirectory, templateWord)).read()
     for directory in toCreateList:
         """ Script """
         contractPath = "%s/%s/" % (srcDirectory, directory)
         contract = run("ls %s" % contractPath)[0].replace(".sol", "")
-        scriptPath = "%s/%s/%s.s.sol" % (scriptDirectory, directory, directory)
+        scriptPath = "%s/%s/%s.s.sol" % (scriptDirectory, directory, contract)
         newContent = temaplateScriptContent.replace(
             "src/SOLVERTEMPLATE/SOLVERTEMPLATE.sol",
             "src/%s/%s.sol" % (directory, contract)
@@ -44,6 +45,7 @@ def main():
         newScript.write(newContent)
         """ README """
         newREADMEPath = "%s/%s/README.md" % (scriptDirectory, directory)
+        temaplateREADMEContent = temaplateREADMEContent.replace(templateWordcontract, contract)
         newREADMEContent = temaplateREADMEContent.replace(templateWord, directory)
         newREADME = open(newREADMEPath, "w")
         newREADME.write(newREADMEContent)
