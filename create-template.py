@@ -8,7 +8,8 @@ def diff2List(list1, list2, ignoreList):
     set_dif = set(list1).symmetric_difference(set(list2))
     toCreateList = list(set_dif)
     for ignore in ignoreList:
-        toCreateList.pop(toCreateList.index(ignore))
+        if ignore in toCreateList:
+            toCreateList.pop(toCreateList.index(ignore))
     print("diff: ", toCreateList)
     return toCreateList
 
